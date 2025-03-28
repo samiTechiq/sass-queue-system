@@ -1,4 +1,3 @@
-<!-- resources/views/auth/business-register.blade.php -->
 <x-guest-layout>
     <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-lg w-full space-y-8">
@@ -21,7 +20,7 @@
                 <div x-show="step === 1">
                     <h3 class="text-lg font-medium text-gray-900 mb-4">Business Information</h3>
 
-                    <div class="rounded-md shadow-sm space-y-4">
+                    <div class="space-y-4">
                         <div>
                             <label for="business_name" class="block text-sm font-medium text-gray-700">Business Name</label>
                             <input id="business_name" name="business_name" type="text" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ old('business_name') }}">
@@ -66,7 +65,7 @@
                 <div x-show="step === 2">
                     <h3 class="text-lg font-medium text-gray-900 mb-4">Administrator Account</h3>
 
-                    <div class="rounded-md shadow-sm space-y-4">
+                    <div class="space-y-4">
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700">Your Name</label>
                             <input id="name" name="name" type="text" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ old('name') }}">

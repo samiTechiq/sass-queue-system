@@ -153,7 +153,7 @@ class DashboardController extends Controller
         $trialEndsAt = $subscription->trial_ends_at;
 
         // Feature usage statistics
-        $featureUsage = $business->getFeatures();
+        // $featureUsage = $business->getFeatures();
 
         return view('business.dashboard', [
             'business' => $business,
@@ -165,7 +165,7 @@ class DashboardController extends Controller
             'subscriptionEndsAt' => $subscriptionEndsAt,
             'isTrialing' => $isTrialing,
             'trialEndsAt' => $trialEndsAt,
-            'featureUsage' => $featureUsage,
+            // 'featureUsage' => $featureUsage,
         ]);
     }
 

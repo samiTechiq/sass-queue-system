@@ -49,8 +49,8 @@ class SubscriptionSeeder extends Seeder
             'name' => 'Basic',
             'slug' => 'basic',
             'description' => 'Essential features for growing businesses',
-            'price_monthly' => 29.99,
-            'price_yearly' => 299.90, // ~2 months free
+            'price_monthly' => 5000,
+            'price_yearly' => 60000, // ~2 months free
             'stripe_monthly_price_id' => 'price_1234567890basic_monthly',
             'stripe_yearly_price_id' => 'price_1234567890basic_yearly',
             'trial_days' => 14,
@@ -63,8 +63,8 @@ class SubscriptionSeeder extends Seeder
             'name' => 'Professional',
             'slug' => 'professional',
             'description' => 'Advanced features for professional businesses',
-            'price_monthly' => 59.99,
-            'price_yearly' => 599.90, // ~2 months free
+            'price_monthly' => 10000,
+            'price_yearly' => 120000, // ~2 months free
             'stripe_monthly_price_id' => 'price_1234567890pro_monthly',
             'stripe_yearly_price_id' => 'price_1234567890pro_yearly',
             'trial_days' => 14,
@@ -78,8 +78,8 @@ class SubscriptionSeeder extends Seeder
             'name' => 'Enterprise',
             'slug' => 'enterprise',
             'description' => 'Complete solution for large businesses',
-            'price_monthly' => 99.99,
-            'price_yearly' => 999.90, // ~2 months free
+            'price_monthly' => 30000,
+            'price_yearly' => 360000, // ~2 months free
             'stripe_monthly_price_id' => 'price_1234567890enterprise_monthly',
             'stripe_yearly_price_id' => 'price_1234567890enterprise_yearly',
             'trial_days' => 14,

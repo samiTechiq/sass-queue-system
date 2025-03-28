@@ -228,7 +228,7 @@
                 </div>
 
                 <!-- Feature Usage -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                {{-- <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
                         <h3 class="text-lg font-medium text-gray-900 mb-4">Feature Usage</h3>
 
@@ -238,24 +238,24 @@
                             <div>
                                 <div class="flex justify-between text-sm font-medium text-gray-900 mb-1">
                                     <span>{{ $feature['name'] }}</span>
-                                    <span>{{ $feature['used'] }} / {{ $feature['quota'] }}</span>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                    <div class="bg-indigo-600 h-2.5 rounded-full" style="width: {{ min(100, ($feature['used'] / $feature['quota']) * 100) }}%"></div>
-                                </div>
-                            </div>
-                            @endif
-                            @endforeach
-                        </div>
-
-                        <div class="mt-6">
-                            <a href="{{ route('subscription.features') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                                View All Features
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <span>{{ $feature['used'] }} / {{ $feature['quota'] }}</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-indigo-600 h-2.5 rounded-full" style="width: {{ min(100, ($feature['used'] / $feature['quota']) * 100) }}%"></div>
             </div>
         </div>
+        @endif
+        @endforeach
+    </div>
+
+    <div class="mt-6">
+        <a href="{{ route('subscription.features') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+            View All Features
+        </a>
+    </div>
+    </div>
+    </div> --}}
+    </div>
+    </div>
     </div>
 </x-app-layout>

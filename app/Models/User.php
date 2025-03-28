@@ -48,16 +48,15 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'last_login_at' => 'datetime',
         ];
     }
 
-
-
     // Relationship with business
-    // public function business()
-    // {
-    //     return $this->belongsTo(Business::class);
-    // }
+    public function business()
+    {
+        return $this->belongsTo(Business::class);
+    }
 
     // Role-based authorization helper methods
     public function isAdmin()

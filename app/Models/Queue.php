@@ -55,6 +55,11 @@ class Queue extends Model
         return $this->belongsTo(BusinessLocation::class, 'location_id');
     }
 
+    // public function location()
+    // {
+    //     return $this->belongsTo(BusinessLocation::class, 'business_location_id');
+    // }
+
     /**
      * Get all entries for this queue.
      */

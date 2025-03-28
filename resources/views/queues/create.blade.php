@@ -78,7 +78,7 @@
                         </div>
 
                         <!-- Location -->
-                        @if($locations->isNotEmpty())
+                        {{-- @if($locations->isNotEmpty())
                         <div class="mb-6">
                             <label for="location_id" class="block text-sm font-medium text-gray-700">
                                 Location (Optional)
@@ -87,92 +87,88 @@
                                 <option value="">No specific location</option>
                                 @foreach($locations as $location)
                                 <option value="{{ $location->id }}" {{ old('location_id') == $location->id ? 'selected' : '' }}>
-                                    {{ $location->name }}
-                                </option>
-                                @endforeach
-                            </select>
-                            <p class="mt-1 text-xs text-gray-500">
-                                Assign this queue to a specific business location.
-                            </p>
-                            @error('location_id')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        @endif
+                        {{ $location->name }}
+                        </option>
+                        @endforeach
+                        </select>
+                        <p class="mt-1 text-xs text-gray-500">
+                            Assign this queue to a specific business location.
+                        </p>
+                        @error('location_id')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                </div>
+                @endif --}}
 
-                        <!-- Advanced Settings (optional) -->
-                        <div x-data="{ open: false }" class="mb-6">
-                            <button type="button" @click="open = !open" class="flex items-center text-sm text-indigo-600 hover:text-indigo-900 mb-2">
-                                <svg :class="{'rotate-90': open}" class="transform transition-transform h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                                </svg>
-                                Advanced Settings
-                            </button>
+                <!-- Advanced Settings (optional) -->
+                <div x-data="{ open: false }" class="mb-6">
+                    <button type="button" @click="open = !open" class="flex items-center text-sm text-indigo-600 hover:text-indigo-900 mb-2">
+                        <svg :class="{'rotate-90': open}" class="transform transition-transform h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Advanced Settings
+                    </button>
 
-                            <div x-show="open" class="bg-gray-50 p-4 rounded-md" style="display: none;">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                                        Notification Settings
+                    <div x-show="open" class="bg-gray-50 p-4 rounded-md" style="display: none;">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Notification Settings
+                            </label>
+
+                            <div class="space-y-2">
+                                <div class="flex items-start">
+                                    <input type="checkbox" id="settings_auto_sms" name="settings[auto_sms]" value="1" {{ old('settings.auto_sms') ? 'checked' : '' }} class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mt-1">
+                                    <label for="settings_auto_sms" class="ml-2 block text-sm text-gray-700">
+                                        Automatically send SMS notification when customer is called
+
                                     </label>
-
-                                    <div class="space-y-2">
-                                        <div class="flex items-start">
-                                            <input type="checkbox" id="settings_auto_sms" name="settings[auto_sms]" value="1" {{ old('settings.auto_sms') ? 'checked' : '' }} class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mt-1">
-                                            <label for="settings_auto_sms" class="ml-2 block text-sm text-gray-700">
-                                                Automatically send SMS notification when customer is called
-                                                @unless($canSendSms)
-                                                <span class="text-xs text-gray-500">(requires SMS notification feature)</span>
-                                                @endunless
-                                            </label>
-                                        </div>
-
-                                        <div class="flex items-start">
-                                            <input type="checkbox" id="settings_auto_email" name="settings[auto_email]" value="1" {{ old('settings.auto_email') ? 'checked' : '' }} class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mt-1">
-                                            <label for="settings_auto_email" class="ml-2 block text-sm text-gray-700">
-                                                Automatically send email notification when customer is called
-                                                @unless($canSendEmail)
-                                                <span class="text-xs text-gray-500">(requires email notification feature)</span>
-                                                @endunless
-                                            </label>
-                                        </div>
-                                    </div>
                                 </div>
 
-                                <div class="mt-4">
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                                        Queue Behavior
+                                <div class="flex items-start">
+                                    <input type="checkbox" id="settings_auto_email" name="settings[auto_email]" value="1" {{ old('settings.auto_email') ? 'checked' : '' }} class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mt-1">
+                                    <label for="settings_auto_email" class="ml-2 block text-sm text-gray-700">
+                                        Automatically send email notification when customer is called
+
                                     </label>
-
-                                    <div class="space-y-2">
-                                        <div class="flex items-start">
-                                            <input type="checkbox" id="settings_auto_no_show" name="settings[auto_no_show]" value="1" {{ old('settings.auto_no_show') ? 'checked' : '' }} class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mt-1">
-                                            <label for="settings_auto_no_show" class="ml-2 block text-sm text-gray-700">
-                                                Automatically mark as no-show after 5 minutes of being called
-                                            </label>
-                                        </div>
-
-                                        <div class="flex items-start">
-                                            <input type="checkbox" id="settings_collect_feedback" name="settings[collect_feedback]" value="1" {{ old('settings.collect_feedback') ? 'checked' : '' }} class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mt-1">
-                                            <label for="settings_collect_feedback" class="ml-2 block text-sm text-gray-700">
-                                                Collect customer feedback after service
-                                            </label>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="flex justify-end space-x-3">
-                            <a href="{{ route('queues.index') }}" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Cancel
-                            </a>
-                            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Create Queue
-                            </button>
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Queue Behavior
+                            </label>
+
+                            <div class="space-y-2">
+                                <div class="flex items-start">
+                                    <input type="checkbox" id="settings_auto_no_show" name="settings[auto_no_show]" value="1" {{ old('settings.auto_no_show') ? 'checked' : '' }} class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mt-1">
+                                    <label for="settings_auto_no_show" class="ml-2 block text-sm text-gray-700">
+                                        Automatically mark as no-show after 5 minutes of being called
+                                    </label>
+                                </div>
+
+                                <div class="flex items-start">
+                                    <input type="checkbox" id="settings_collect_feedback" name="settings[collect_feedback]" value="1" {{ old('settings.collect_feedback') ? 'checked' : '' }} class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mt-1">
+                                    <label for="settings_collect_feedback" class="ml-2 block text-sm text-gray-700">
+                                        Collect customer feedback after service
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
+
+                <div class="flex justify-end space-x-3">
+                    <a href="{{ route('queues.index') }}" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Cancel
+                    </a>
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Create Queue
+                    </button>
+                </div>
+                </form>
             </div>
         </div>
+    </div>
     </div>
 </x-app-layout>

@@ -46,6 +46,7 @@ class Plan extends Model
             ->withTimestamps();
     }
 
+
     /**
      * Active subscriptions to this plan
      */

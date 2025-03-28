@@ -9,33 +9,40 @@ use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Payment\PaymentGatewayFactory;
+use Termwind\Components\Raw;
 
 class SubscriptionController extends Controller
 {
+
+
+    public function index()
+    {
+        return view('pricing');
+    }
     /**
      * Show subscription plans
      */
-    public function index()
-    {
-        $plans = Plan::where('is_active', true)
-            ->orderBy('sort_order')
-            ->get();
+    // public function index()
+    // {
+    //     $plans = Plan::where('is_active', true)
+    //         ->orderBy('sort_order')
+    //         ->get();
 
-        $business = auth()->user()->business;
-        $currentSubscription = $business->activeSubscription();
+    //     $business = auth()->user()->business;
+    //     $currentSubscription = $business->activeSubscription();
 
-        return view('subscription.plans', [
-            'plans' => $plans,
-            'currentSubscription' => $currentSubscription,
-        ]);
-    }
+    //     return view('subscription.plans', [
+    //         'plans' => $plans,
+    //         'currentSubscription' => $currentSubscription,
+    //     ]);
+    // }
 
     /**
      * Show subscription management page
      */
-    public function manage()
+    public function manage(Request $request)
     {
-        $business = auth()->user()->business;
+        $business = $request->user()->business;
         $subscription = $business->activeSubscription();
         $paymentMethods = $business->paymentMethods()->get();
 
@@ -55,7 +62,7 @@ class SubscriptionController extends Controller
      */
     public function checkout(Plan $plan, Request $request)
     {
-        $business = auth()->user()->business;
+        $business = $request->user()->business;
         $currentSubscription = $business->activeSubscription();
         $paymentMethods = $business->paymentMethods()->get();
         $billingCycle = $request->get('billing_cycle', 'monthly');
@@ -86,7 +93,7 @@ class SubscriptionController extends Controller
             'payment_method_id' => 'nullable|string',
         ]);
 
-        $business = auth()->user()->business;
+        $business = $request->user()->business;
         $plan = Plan::findOrFail($validated['plan_id']);
         $gateway = PaymentGatewayFactory::create();
 
@@ -171,7 +178,7 @@ class SubscriptionController extends Controller
         $immediately = $validated['immediately'] ?? false;
         $reason = $validated['reason'] ?? null;
 
-        $business = auth()->user()->business;
+        $business = $request->user()->business;
         $subscription = $business->activeSubscription();
 
         if (!$subscription) {
@@ -198,7 +205,7 @@ class SubscriptionController extends Controller
      */
     public function resume(Request $request)
     {
-        $business = Auth()->user()->business;
+        $business = $request->user()->business;
         $subscription = $business->activeSubscription();
 
         if (!$subscription || !$subscription->isCanceled()) {
@@ -218,9 +225,9 @@ class SubscriptionController extends Controller
     /**
      * Show feature usage
      */
-    public function features()
+    public function features(Request $request)
     {
-        $business = auth()->user()->business;
+        $business = $request->user()->business;
         $features = $business->getFeatures();
 
         return view('subscription.features', [
@@ -232,9 +239,9 @@ class SubscriptionController extends Controller
     /**
      * Show payment methods page
      */
-    public function paymentMethods()
+    public function paymentMethods(Request $request)
     {
-        $business = auth()->user()->business;
+        $business = $request->user()->business;
         $paymentMethods = $business->paymentMethods()->get();
 
         // Get setup intent for Stripe
@@ -257,7 +264,7 @@ class SubscriptionController extends Controller
             'payment_method_id' => 'required|string',
         ]);
 
-        $business = auth()->user()->business;
+        $business = $request->user()->business;
         $gateway = PaymentGatewayFactory::create();
 
         try {
@@ -276,7 +283,7 @@ class SubscriptionController extends Controller
      */
     public function setDefaultPaymentMethod(Request $request, PaymentMethod $paymentMethod)
     {
-        $business = auth()->user()->business;
+        $business = $request->user()->business;
 
         if ($paymentMethod->business_id !== $business->id) {
             return back()->with('error', 'Invalid payment method.');
@@ -292,7 +299,7 @@ class SubscriptionController extends Controller
      */
     public function deletePaymentMethod(Request $request, PaymentMethod $paymentMethod)
     {
-        $business = auth()->user()->business;
+        $business = $request->user()->business;
 
         if ($paymentMethod->business_id !== $business->id) {
             return back()->with('error', 'Invalid payment method.');
@@ -310,9 +317,9 @@ class SubscriptionController extends Controller
     /**
      * Show invoice list
      */
-    public function invoices()
+    public function invoices(Request $request)
     {
-        $business = auth()->user()->business;
+        $business = $request->user()->business;
         $invoices = $business->invoices()->orderByDesc('created_at')->paginate(10);
 
         return view('subscription.invoices', [
@@ -332,13 +339,13 @@ class SubscriptionController extends Controller
     /**
      * Show upgrade required page
      */
-    public function upgrade()
+    public function upgrade(Request $request)
     {
         $plans = Plan::where('is_active', true)
             ->orderBy('sort_order')
             ->get();
 
-        $business = auth()->user()->business;
+        $business = $request->user()->business;
         $currentSubscription = $business->activeSubscription();
 
         return view('subscription.upgrade', [

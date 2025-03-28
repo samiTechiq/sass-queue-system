@@ -95,20 +95,16 @@ class QueueController extends Controller
     {
         $user = $request->user();
         $business = $user->business;
-
-        // Check subscription for creating more queues
-        if (!$business->canUseFeature(FeatureService::FEATURE_MAX_QUEUES, 1)) {
-            return redirect()->route('queues.index')
-                ->with('error', 'You have reached the maximum number of queues allowed by your subscription plan. Please upgrade to create more queues.');
-        }
-
         // Get business locations for dropdown
         $locations = $business->locations;
 
-        return view('queues.create', [
-            'locations' => $locations,
-            'business' => $business,
-        ]);
+        return view('queues.create', []);
+
+
+        // if (!$business->canUseFeature(FeatureService::FEATURE_MAX_QUEUES, 1)) {
+        //     return redirect()->route('queues.index')
+        //         ->with('error', 'You have reached the maximum number of queues allowed by your subscription plan. Please upgrade to create more queues.');
+        // }
     }
 
     /**

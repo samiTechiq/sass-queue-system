@@ -10,7 +10,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Auth\BusinessRegistrationRequest;
 
-// app/Http/Controllers/Auth/BusinessRegistrationController.php
 class BusinessRegistrationController extends Controller
 {
     public function showRegistrationForm()
@@ -20,6 +19,7 @@ class BusinessRegistrationController extends Controller
 
     public function register(BusinessRegistrationRequest $request)
     {
+        // dd($request->all());
         DB::transaction(function () use ($request) {
             // Create business
             $business = Business::create([
@@ -40,7 +40,7 @@ class BusinessRegistrationController extends Controller
 
             // Create trial subscription
             $business->subscriptions()->create([
-                'plan_id' => Plan::where('name', 'Free Trial')->first()->id,
+                'plan_id' => Plan::where('name', 'Free')->first()->id,
                 'status' => 'active',
                 'start_date' => now(),
                 'end_date' => now()->addDays(14),
@@ -48,6 +48,6 @@ class BusinessRegistrationController extends Controller
         });
 
         // Log the user in
-        return redirect()->route('business.dashboard');
+        return redirect()->route('dashboard');
     }
 }

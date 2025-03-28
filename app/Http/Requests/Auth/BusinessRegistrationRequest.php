@@ -40,7 +40,7 @@ class BusinessRegistrationRequest extends FormRequest
             'password' => ['required', 'confirmed', Password::defaults()],
 
             // Terms and Privacy Policy
-            'terms' => ['required', 'accepted'],
+            //'terms' => ['required', 'accepted'],
         ];
     }
 

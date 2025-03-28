@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('postal_code')->nullable();
-            $table->string('country')->default('US');
-            $table->string('timezone')->default('UTC');
+            $table->string('country')->default('NG');
+            $table->string('timezone')->default('Africa/Lagos');
             $table->string('logo_path')->nullable();
             $table->string('website')->nullable();
 
